@@ -32,8 +32,9 @@ namespace weatherDesktop
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            updateNowInfo();
-            updateForcastInfo();
+            //updateNowInfo();
+            //updateForcastInfo();
+            loadJSON();
         }
 
         private WeatherInfo getinfo(string url)
@@ -63,8 +64,8 @@ namespace weatherDesktop
         {
             WeatherInfo forcastinfo = getinfo(forecastTempUrl);
             //prase to the page            
-            tempHi.Content = forcastinfo.weatherinfo.temp1;
-            tempLow.Content = forcastinfo.weatherinfo.temp2;
+            tempHi.Content = forcastinfo.weatherinfo.temp2;
+            tempLow.Content = forcastinfo.weatherinfo.temp1;
             weather.Content = forcastinfo.weatherinfo.weather;
         }
 
@@ -73,5 +74,35 @@ namespace weatherDesktop
             updateNowInfo();
             updateTime.Content = DateTime.Now.ToShortTimeString();
         }        
+
+        //downloadstringasync
+        public void loadJSON()
+        {
+            WebClient client = new WebClient();
+            client.Encoding = System.Text.Encoding.UTF8;
+            // Specify that the DownloadStringCallback2 method gets called
+            // when the download completes.
+            client.DownloadStringCompleted += new DownloadStringCompletedEventHandler(loadJSONCallback);
+            client.DownloadStringAsync(new Uri(nowTempUrl));
+            return;
+        }
+
+        public void loadJSONCallback(Object sender, DownloadStringCompletedEventArgs e)
+        {
+            // If the request was not canceled and did not throw
+            // an exception, display the resource.
+            if (!e.Cancelled && e.Error == null)
+            {
+                string result = (string)e.Result;
+                var weatherinfo = JsonConvert.DeserializeObject<WeatherInfo>(result);
+                location.Content = weatherinfo.weatherinfo.city;
+                tempNow.Content = weatherinfo.weatherinfo.temp;
+                wd.Content = weatherinfo.weatherinfo.wd;
+                ws.Content = weatherinfo.weatherinfo.ws;
+                sd.Content = weatherinfo.weatherinfo.sd;
+                pubTime.Content = weatherinfo.weatherinfo.time;
+
+            }
+        }
     }
 }
