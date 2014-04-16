@@ -1,17 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Net;
+using System.Windows;
 using Newtonsoft.Json;
 using weatherDesktop.Entity;
 
@@ -20,10 +9,10 @@ namespace weatherDesktop
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
-        const string nowTempUrl = "http://www.weather.com.cn/data/sk/101020100.html";
-        const string forecastTempUrl = "http://www.weather.com.cn/data/cityinfo/101020100.html";
+        private const string NowTempUrl = "http://www.weather.com.cn/data/sk/101020100.html";
+        private const string ForecastTempUrl = "http://www.weather.com.cn/data/cityinfo/101020100.html";
 
         public MainWindow()
         {
@@ -32,77 +21,53 @@ namespace weatherDesktop
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //updateNowInfo();
-            //updateForcastInfo();
-            loadJSON();
-        }
-
-        private WeatherInfo getinfo(string url)
-        {
-            using (var webClient = new System.Net.WebClient())
-            {
-                webClient.Encoding = System.Text.Encoding.UTF8;
-                var json = webClient.DownloadString(url);                
-                var weatherinfo = JsonConvert.DeserializeObject<WeatherInfo>(json);
-                return weatherinfo;
-            }            
-        }
-
-        private void updateNowInfo()
-        {
-            WeatherInfo nowinfo = getinfo(nowTempUrl);
-            //prase to the page
-            location.Content = nowinfo.weatherinfo.city;
-            tempNow.Content = nowinfo.weatherinfo.temp;
-            wd.Content = nowinfo.weatherinfo.wd;
-            ws.Content = nowinfo.weatherinfo.ws;
-            sd.Content = nowinfo.weatherinfo.sd;
-            pubTime.Content = nowinfo.weatherinfo.time;
-        }
-
-        private void updateForcastInfo()
-        {
-            WeatherInfo forcastinfo = getinfo(forecastTempUrl);
-            //prase to the page            
-            tempHi.Content = forcastinfo.weatherinfo.temp2;
-            tempLow.Content = forcastinfo.weatherinfo.temp1;
-            weather.Content = forcastinfo.weatherinfo.weather;
+            LoadJson(NowTempUrl);
+            LoadJson(ForecastTempUrl);
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            updateNowInfo();
+            LoadJson(NowTempUrl);
             updateTime.Content = DateTime.Now.ToShortTimeString();
-        }        
+        }
 
-        //downloadstringasync
-        public void loadJSON()
+        //download json async
+        private void LoadJson(string url)
         {
-            WebClient client = new WebClient();
+            var client = new WebClient();
             client.Encoding = System.Text.Encoding.UTF8;
             // Specify that the DownloadStringCallback2 method gets called
             // when the download completes.
-            client.DownloadStringCompleted += new DownloadStringCompletedEventHandler(loadJSONCallback);
-            client.DownloadStringAsync(new Uri(nowTempUrl));
-            return;
+            client.DownloadStringCompleted += LoadJsonCallback;
+            client.DownloadStringAsync(new Uri(url));
         }
 
-        public void loadJSONCallback(Object sender, DownloadStringCompletedEventArgs e)
+        //callback method when download complete
+        private void LoadJsonCallback(Object sender, DownloadStringCompletedEventArgs e)
         {
             // If the request was not canceled and did not throw
             // an exception, display the resource.
-            if (!e.Cancelled && e.Error == null)
-            {
-                string result = (string)e.Result;
-                var weatherinfo = JsonConvert.DeserializeObject<WeatherInfo>(result);
-                location.Content = weatherinfo.weatherinfo.city;
-                tempNow.Content = weatherinfo.weatherinfo.temp;
-                wd.Content = weatherinfo.weatherinfo.wd;
-                ws.Content = weatherinfo.weatherinfo.ws;
-                sd.Content = weatherinfo.weatherinfo.sd;
-                pubTime.Content = weatherinfo.weatherinfo.time;
+            if (e.Cancelled || e.Error != null) return;
+            var result = e.Result;
+            var weatherinfo = JsonConvert.DeserializeObject<WeatherInfo>(result);
+            //city
+            location.Content = weatherinfo.weatherinfo.city ?? location.Content;
+            //realtime                
+            tempNow.Content = weatherinfo.weatherinfo.temp ?? tempNow.Content;
+            wd.Content = weatherinfo.weatherinfo.wd ?? wd.Content;
+            ws.Content = weatherinfo.weatherinfo.ws ?? ws.Content;
+            sd.Content = weatherinfo.weatherinfo.sd ?? sd.Content;
+            pubTime.Content = weatherinfo.weatherinfo.time ?? pubTime.Content;
+            //forcast
+            tempHi.Content = weatherinfo.weatherinfo.temp1 ?? tempHi.Content;
+            tempLow.Content = weatherinfo.weatherinfo.temp2 ?? tempLow.Content;
+            weather.Content = weatherinfo.weatherinfo.weather ?? weather.Content;
+        }
 
-            }
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var option = new OptionWindow();
+            option.ShowDialog();
         }
     }
 }

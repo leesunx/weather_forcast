@@ -1,0 +1,9 @@
+﻿<Window x:Class="weatherDesktop.OptionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="OptionWindow" Height="300" Width="300" Name="WeatherOption" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+    <Grid Name="Grid_2">
+        <Slider Height="23" HorizontalAlignment="Left" Margin="12,46,0,0" Name="slider_1" VerticalAlignment="Top" Width="138" ValueChanged="slider_1_ValueChanged" Maximum="255" />
+        <Label Content="透明度" Height="28" HorizontalAlignment="Left" Margin="12,12,0,0" Name="static_1" VerticalAlignment="Top" />
+    </Grid>
+</Window>

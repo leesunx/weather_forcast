@@ -1,32 +1,36 @@
 ﻿<Window x:Class="weatherDesktop.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Weather Desktop" Loaded="Window_Loaded" ResizeMode="NoResize" Name="WeaatherForcast" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignHeight="525" d:DesignWidth="208" DataContext="{Binding}" SizeToContent="WidthAndHeight">
-    <Grid Height="275" Name="grid1" Width="187" VerticalAlignment="Top" Margin="0,5,0,0">
+        Title="Weather Desktop" Loaded="Window_Loaded" ResizeMode="NoResize" Name="WeatherForcast" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignHeight="525" d:DesignWidth="208" SizeToContent="WidthAndHeight">
+    <Grid Height="279" Name="grid1" Width="188" VerticalAlignment="Top" Margin="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="59*" />
-            <RowDefinition Height="211" />
+            <RowDefinition Height="220" />
         </Grid.RowDefinitions>
-        <Label Content="上海" Height="37" HorizontalAlignment="Left" Margin="8,10,0,0" Name="location" VerticalAlignment="Top" Width="55" FontFamily="Microsoft YaHei" FontSize="20" />
-        <Label Content="天气" Margin="56,10,0,0" Name="static_1" HorizontalAlignment="Left" Width="57" FontFamily="Microsoft YaHei" FontSize="20" Height="38" VerticalAlignment="Top" />
-        <Label Content="888" Height="27" Margin="0,14,35,0" Name="tempNow" VerticalAlignment="Top" FontFamily="Microsoft YaHei" FontSize="16" HorizontalAlignment="Right" />
-        <Label Content="℃" Height="31" HorizontalAlignment="Right" Margin="0,14,17,0" Name="static_2" VerticalAlignment="Top" Width="28" FontFamily="Microsoft YaHei" FontSize="16" />
-        <Label Content="预报气温" FontFamily="Microsoft YaHei" FontSize="12" Height="26" HorizontalAlignment="Right" Margin="0,9,120,0" Name="static_3" VerticalAlignment="Top" Width="58" Grid.Row="1" />
+        <Label Content="上海" Height="37" Margin="8,22,124,0" Name="location" VerticalAlignment="Top" FontFamily="Microsoft YaHei" FontSize="20" />
+        <Label Grid.Row="0" Content="天气" Margin="56,22,74,0" Name="static_1" FontFamily="Microsoft YaHei" FontSize="20" Height="38" VerticalAlignment="Top" />
+        <Label Grid.Row="0" Content="888" Height="27" Margin="0,26,35,0" Name="tempNow" VerticalAlignment="Top" FontFamily="Microsoft YaHei" FontSize="16" HorizontalAlignment="Right" />
+        <Label Grid.Row="0" Content="℃" Height="31" Margin="0,26,17,0" Name="static_2" VerticalAlignment="Top" FontFamily="Microsoft YaHei" FontSize="16" HorizontalAlignment="Right" Width="28" />
+        <Label Content="预报气温" FontFamily="Microsoft YaHei" FontSize="12" HorizontalAlignment="Right" Margin="0,9,120,0" Name="static_3" Width="58" Grid.Row="1" Height="26" VerticalAlignment="Top" />
         <Label FontFamily="Microsoft YaHei" FontSize="12" Height="26" HorizontalAlignment="Right" Margin="0,9,73,0" Name="tempLow" VerticalAlignment="Top" Width="41" Grid.Row="1" Content="000℃" />
         <Label Content="～" FontFamily="Microsoft YaHei" FontSize="12" Height="26" HorizontalAlignment="Right" Margin="0,8,57,0" Name="static_4" VerticalAlignment="Top" Width="20" Grid.Row="1" />
         <Label Content="888℃" FontFamily="Microsoft YaHei" FontSize="12" Height="26" HorizontalAlignment="Right" Margin="0,9,17,0" Name="tempHi" VerticalAlignment="Top" Width="44" Grid.Row="1" />
-        <Label Content="预报天气" FontFamily="Microsoft YaHei" FontSize="12" Height="26" HorizontalAlignment="Right" Margin="0,0,120,144" Name="static_5" VerticalAlignment="Bottom" Width="58" Grid.Row="1" />
-        <Label Content="多云转小雨" FontFamily="Microsoft YaHei" FontSize="12" Height="26" HorizontalAlignment="Right" Margin="0,41,15,0" Name="weather" VerticalAlignment="Top" Width="99" Grid.Row="1" />
-        <Label Content="风　　向" FontFamily="Microsoft YaHei" FontSize="12" Height="26" HorizontalAlignment="Right" Margin="0,0,120,112" Name="static_6" VerticalAlignment="Bottom" Width="58" Grid.Row="1" />
-        <Label Content="风　　力" FontFamily="Microsoft YaHei" FontSize="12" Height="26" HorizontalAlignment="Right" Margin="0,0,120,80" Name="static_7" VerticalAlignment="Bottom" Width="58" Grid.Row="1" />
-        <Label Content="湿　　度" FontFamily="Microsoft YaHei" FontSize="12" Height="26" HorizontalAlignment="Right" Margin="0,0,120,48" Name="static_8" VerticalAlignment="Bottom" Width="58" Grid.Row="1" />
-        <Label Content="东北风" FontFamily="Microsoft YaHei" FontSize="12" Height="26" HorizontalAlignment="Right" Margin="0,73,15,0" Name="wd" VerticalAlignment="Top" Width="99" Grid.Row="1" />
-        <Label Content="9级" FontFamily="Microsoft YaHei" FontSize="12" Height="26" HorizontalAlignment="Right" Margin="0,105,15,0" Name="ws" VerticalAlignment="Top" Width="99" Grid.Row="1" />
-        <Label Content="56%" FontFamily="Microsoft YaHei" FontSize="12" Height="26" HorizontalAlignment="Right" Margin="0,137,15,0" Name="sd" VerticalAlignment="Top" Width="99" Grid.Row="1" />
-        <Button Content="更新" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="12,176,0,0" Name="button1" VerticalAlignment="Top" Width="57" Click="button1_Click" />
-        <Label Content="发布时间" FontFamily="Microsoft YaHei" FontSize="10" Height="23" HorizontalAlignment="Right" Margin="0,0,45,19" Name="static_9" VerticalAlignment="Bottom" Width="55" Grid.Row="1" />
+        <Label Content="预报天气" FontFamily="Microsoft YaHei" FontSize="12" HorizontalAlignment="Right" Margin="0,41,120,0" Name="static_5" Width="58" Grid.Row="1" Height="26" VerticalAlignment="Top" />
+        <Label Content="多云转小雨" FontFamily="Microsoft YaHei" FontSize="12" HorizontalAlignment="Right" Margin="0,41,15,144" Name="weather" Width="99" Grid.Row="1" />
+        <Label Content="风　　向" FontFamily="Microsoft YaHei" FontSize="12" HorizontalAlignment="Right" Margin="0,73,120,0" Name="static_6" Width="58" Grid.Row="1" Height="26" VerticalAlignment="Top" />
+        <Label Content="风　　力" FontFamily="Microsoft YaHei" FontSize="12" HorizontalAlignment="Right" Margin="0,105,120,0" Name="static_7" Width="58" Grid.Row="1" Height="26" VerticalAlignment="Top" />
+        <Label Content="湿　　度" FontFamily="Microsoft YaHei" FontSize="12" HorizontalAlignment="Right" Margin="0,137,120,0" Name="static_8" Width="58" Grid.Row="1" Height="26" VerticalAlignment="Top" />
+        <Label Content="东北风" FontFamily="Microsoft YaHei" FontSize="12" HorizontalAlignment="Right" Margin="0,73,15,112" Name="wd" Width="99" Grid.Row="1" />
+        <Label Content="9级" FontFamily="Microsoft YaHei" FontSize="12" HorizontalAlignment="Right" Margin="0,105,15,80" Name="ws" Width="99" Grid.Row="1" />
+        <Label Content="56%" FontFamily="Microsoft YaHei" FontSize="12" HorizontalAlignment="Right" Margin="0,137,15,48" Name="sd" Width="99" Grid.Row="1" />
+        <Button Content="更新" Grid.Row="1" HorizontalAlignment="Right" Margin="0,176,118,0" Name="button1" Width="57" Click="button1_Click" Height="23" VerticalAlignment="Top" />
+        <Label Content="发布时间" FontFamily="Microsoft YaHei" FontSize="10" HorizontalAlignment="Right" Margin="0,169,45,19" Name="static_9" Width="55" Grid.Row="1" />
         <Label Content="08：00" FontFamily="Microsoft YaHei" FontSize="10" HorizontalAlignment="Right" Margin="0,169,-4,19" Name="pubTime" Width="55" Grid.Row="1" />
-        <Label Content="更新时间" FontFamily="Microsoft YaHei" FontSize="10" Height="23" HorizontalAlignment="Right" Margin="0,0,45,0" Name="static_10" VerticalAlignment="Bottom" Width="55" Grid.Row="1" />
-        <Label FontFamily="Microsoft YaHei" FontSize="10" Height="23" HorizontalAlignment="Right" Margin="0,0,-4,0" Name="updateTime" VerticalAlignment="Bottom" Width="55" Grid.Row="1" />
+        <Label Content="更新时间" FontFamily="Microsoft YaHei" FontSize="10" HorizontalAlignment="Right" Margin="0,188,45,0" Name="static_10" Width="55" Grid.Row="1" />
+        <Label FontFamily="Microsoft YaHei" FontSize="10" HorizontalAlignment="Right" Margin="0,188,1,0" Name="updateTime" Width="50" Grid.Row="1" Height="22" VerticalAlignment="Top" />
+
+        <Menu Grid.Row="0" Height="23" HorizontalAlignment="Left" Name="menu" VerticalAlignment="Top" Width="200" IsMainMenu="True">
+            <MenuItem Header="_Option" IsCheckable="False" Click="MenuItem_Click" />
+        </Menu>
     </Grid>
 </Window>
