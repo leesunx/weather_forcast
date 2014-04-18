@@ -3,6 +3,8 @@ using System.Net;
 using System.Windows;
 using Newtonsoft.Json;
 using weatherDesktop.Entity;
+using System.Windows.Input;
+using System.Threading;
 
 namespace weatherDesktop
 {
@@ -23,12 +25,19 @@ namespace weatherDesktop
         {
             LoadJson(NowTempUrl);
             LoadJson(ForecastTempUrl);
+            
+            // call update every 10 min
+            var aTimer = new System.Timers.Timer();
+            aTimer.Elapsed += UpdateTick;
+            aTimer.Interval = 60000; //60s
+            aTimer.Enabled = true;
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            LoadJson(NowTempUrl);
-            updateTime.Content = DateTime.Now.ToShortTimeString();
+            var air = new Air();
+            air.ShowDialog();
+
         }
 
         //download json async
@@ -50,24 +59,46 @@ namespace weatherDesktop
             if (e.Cancelled || e.Error != null) return;
             var result = e.Result;
             var weatherinfo = JsonConvert.DeserializeObject<WeatherInfo>(result);
+
             //city
             location.Content = weatherinfo.weatherinfo.city ?? location.Content;
+
             //realtime                
             tempNow.Content = weatherinfo.weatherinfo.temp ?? tempNow.Content;
             wd.Content = weatherinfo.weatherinfo.wd ?? wd.Content;
             ws.Content = weatherinfo.weatherinfo.ws ?? ws.Content;
             sd.Content = weatherinfo.weatherinfo.sd ?? sd.Content;
             pubTime.Content = weatherinfo.weatherinfo.time ?? pubTime.Content;
+
             //forcast
             tempHi.Content = weatherinfo.weatherinfo.temp1 ?? tempHi.Content;
             tempLow.Content = weatherinfo.weatherinfo.temp2 ?? tempLow.Content;
             weather.Content = weatherinfo.weatherinfo.weather ?? weather.Content;
+            
+            //updatetime
+            updateTime.Content = DateTime.Now.ToShortTimeString();
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             var option = new OptionWindow();
             option.ShowDialog();
+        }
+
+        // Move window when windowstyle is none
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            base.OnMouseLeftButtonDown(e);
+
+            // Begin dragging the window
+            DragMove();
+        }
+
+        // 委托定时更新
+        private void UpdateTick(Object sender, EventArgs e)
+        {
+            Dispatcher.BeginInvoke(
+                new ThreadStart(() => LoadJson(NowTempUrl)));
         }
     }
 }

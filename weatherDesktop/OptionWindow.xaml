@@ -1,9 +1,10 @@
 ﻿<Window x:Class="weatherDesktop.OptionWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="OptionWindow" Height="300" Width="300" Name="WeatherOption" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
-    <Grid Name="Grid_2">
+        Title="OptionWindow" Height="300" Width="183" Name="WeatherOption" ResizeMode="NoResize" AllowsTransparency="True" WindowStyle="None" SizeToContent="WidthAndHeight" AllowDrop="True" OpacityMask="White" Foreground="#FF000014" Background="#7175D9D6">
+    <Grid Name="Grid_2" AllowDrop="True">
         <Slider Height="23" HorizontalAlignment="Left" Margin="12,46,0,0" Name="slider_1" VerticalAlignment="Top" Width="138" ValueChanged="slider_1_ValueChanged" Maximum="255" />
         <Label Content="透明度" Height="28" HorizontalAlignment="Left" Margin="12,12,0,0" Name="static_1" VerticalAlignment="Top" />
+        <Button Content="Close" Height="23" HorizontalAlignment="Left" Margin="102,80,0,0" Name="Close" VerticalAlignment="Top" Width="47" Click="Close_Click" />
     </Grid>
 </Window>
